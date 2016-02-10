@@ -1,0 +1,5 @@
+{
+  "require": {
+    "phpunit/phpunit-mock-objects": ">=3.0.5"
+  }
+}

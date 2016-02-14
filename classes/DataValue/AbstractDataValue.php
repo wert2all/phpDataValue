@@ -43,7 +43,7 @@ abstract class AbstractDataValue
     }
 
     /**
-     * @return array
+     * @return PropertyInterface[]
      */
     abstract protected function _getInitPropertyList();
 

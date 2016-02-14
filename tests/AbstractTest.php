@@ -9,7 +9,6 @@
 namespace Tests\DataValue;
 
 use wert2all\DataValue\AbstractDataValue;
-use wert2all\DataValue\Exception\Property\Bad;
 use wert2all\DataValue\Property;
 
 class AbstractTest extends \PHPUnit_Framework_TestCase

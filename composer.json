@@ -1,5 +1,6 @@
 {
   "require": {
-    "phpunit/phpunit-mock-objects": ">=3.0.5"
+    "phpunit/phpunit-mock-objects": ">=3.0.5",
+    "phpunit/phpunit": "5.4.x-dev"
   }
 }

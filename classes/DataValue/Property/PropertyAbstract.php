@@ -22,10 +22,28 @@ abstract class PropertyAbstract implements PropertyInterface
     }
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->toString();
+    }
+
+    /**
+     * @return  string
+     */
+    public function toString()
+    {
+        return $this->getPropertyName() . ": " . $this->getValue();
+    }
+
+    /**
      * @return mixed
      */
     final public function getPropertyName()
     {
         return $this->name;
     }
+
+
 }

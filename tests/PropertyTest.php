@@ -97,6 +97,12 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testToString()
+    {
+        $this->property->setValue("test value");
+        $this->assertEquals("test: test value", $this->property->toString());
+    }
+
     protected function setUp()
     {
         parent::setUp();

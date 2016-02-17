@@ -9,6 +9,7 @@
 namespace Tests\DataValue;
 
 use wert2all\DataValue\AbstractDataValue;
+use wert2all\DataValue\Example\Car;
 use wert2all\DataValue\Property;
 
 class AbstractTest extends \PHPUnit_Framework_TestCase
@@ -19,25 +20,25 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
     /** @expectedException wert2all\DataValue\Exception\NotSetterNotGetter */
     public function testBadMethod()
     {
-        $this->param->tesUrl();
+        $this->param->tesEngine();
     }
 
     /** @expectedException  wert2all\DataValue\Exception\SetterOneArgument */
     public function testSetterNullArgumentsException()
     {
-        $this->param->setUrl();
+        $this->param->setEngine();
     }
 
     /** @expectedException  wert2all\DataValue\Exception\SetterOneArgument */
     public function testSetterMoreOneArgumentsException()
     {
-        $this->param->setUrl("1", "2");
+        $this->param->setEngine("1", "2");
     }
 
     /** @expectedException  wert2all\DataValue\Exception\GetterWithoutArguments */
     public function testGetterNotNUllArgumentsException()
     {
-        $this->param->getUrl("1");
+        $this->param->getEngine("1");
     }
 
     /** @expectedException  wert2all\DataValue\Exception\Property\Bad */
@@ -58,11 +59,11 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetterUpperCase()
     {
-        $this->param->setUrl("s");
-        $this->param->getUrl();
-        $this->param->geturl();
-        $this->param->Geturl();
-        $this->param->GetUrl();
+        $this->param->setEngine("s");
+        $this->param->getEngine();
+        $this->param->getengine();
+        $this->param->Getengine();
+        $this->param->GetEngine();
     }
 
     /**
@@ -71,15 +72,15 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetterUpperCase()
     {
-        $this->param->setUrl("1");
-        $this->param->seturl("1");
-        $this->param->Seturl("1");
-        $this->param->SetUrl("1");
+        $this->param->setEngine("1");
+        $this->param->setengine("1");
+        $this->param->Setengine("1");
+        $this->param->SetEngine("1");
     }
 
     public function testSetterReturn()
     {
-        $this->assertInstanceOf("wert2all\DataValue\AbstractDataValue", $this->param->setUrl("1"));
+        $this->assertInstanceOf("wert2all\DataValue\AbstractDataValue", $this->param->setEngine("1"));
     }
 
 
@@ -87,24 +88,47 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             "test value",
-            $this->param->setUrl("test value")
-                ->getUrl()
+            $this->param->setEngine("test value")
+                ->getEngine()
         );
+    }
+
+    public function testToString()
+    {
+        $this->param
+            ->setEngine("test")
+            ->setColor("red");
+
+        $this->assertEquals("wert2all\DataValue\Example\Car values:\n\tengine: test,\n\tcolor: red,\n", $this->param->toString());
+    }
+
+    /**
+     * @return array
+     * @throws \wert2all\DataValue\Exception\Property\ReadOnly
+     */
+    public function dataProviderCar()
+    {
+        $property = new Property("engineName");
+        $property->setValue("zaz");
+
+        return array(
+            array(1),
+            array($property)
+        );
+    }
+
+    /**
+     * @dataProvider  dataProviderCar
+     * @param mixed $value
+     */
+    public function testEngineCar($value)
+    {
+        $this->assertEquals($value, $this->param->setEngine($value)->getEngine());
     }
 
     protected function setUp()
     {
         parent::setUp();
-
-        $mock = $this->getMockBuilder('wert2all\DataValue\AbstractDataValue')
-            ->setConstructorArgs(array(
-                array(
-                    new Property("url")
-                )
-            ))
-            ->getMock();
-
-        $this->param = $mock;
+        $this->param = new Car();
     }
-
 }

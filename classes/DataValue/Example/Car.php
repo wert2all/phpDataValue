@@ -9,6 +9,8 @@ use wert2all\DataValue\Property;
 /**
  * @method Car setEngine($value)
  * @method mixed getEngine()
+ * @method Car setColor($value)
+ * @method mixed getColor()
  */
 class Car extends AbstractDataValue
 {
@@ -20,7 +22,8 @@ class Car extends AbstractDataValue
     protected function _getInitPropertyList()
     {
         return array(
-            new Property("engine")
+            new Property("engine"),
+            new Property("color")
         );
     }
 }

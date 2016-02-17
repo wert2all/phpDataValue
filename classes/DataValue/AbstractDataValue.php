@@ -137,4 +137,25 @@ abstract class AbstractDataValue
             throw new GetterWithoutArguments();
         }
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->toString();
+    }
+
+    /**
+     * @return string
+     */
+    public function toString()
+    {
+        $return = get_class($this) . " values:\n";
+        /** @var PropertyInterface $property */
+        foreach ($this->properties as $property) {
+            $return .= "\t" . $property->toString() . ",\n";
+        }
+        return $return;
+    }
 }

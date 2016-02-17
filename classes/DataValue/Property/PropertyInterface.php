@@ -40,4 +40,7 @@ interface PropertyInterface
 
     /** @return string */
     public function getPropertyName();
+
+    /** @return string */
+    public function toString();
 }

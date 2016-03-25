@@ -61,6 +61,19 @@ final class Property implements PropertyInterface
     }
 
     /**
+     * @param PropertyInterface $property
+     * @return boolean
+     */
+    public function equal(PropertyInterface $property)
+    {
+        return
+            ($this->getPropertyName() === $property->getPropertyName())
+            and ($this->getValue() === $property->getValue())
+            and ($this->isReadOnly() === $property->isReadOnly())
+            and ($this->isRequired() === $property->isRequired());
+    }
+    
+    /**
      * @return string
      */
     public function __toString()
@@ -117,4 +130,19 @@ final class Property implements PropertyInterface
         return ($this->isValueSet);
     }
 
+    /**
+     * @return boolean
+     */
+    public function isReadOnly()
+    {
+        return $this->isReadOnly;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isRequired()
+    {
+        return $this->isRequired;
+    }
 }

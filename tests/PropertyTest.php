@@ -123,6 +123,71 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
     }
 
 
+    /**
+     * @param $expected
+     * @param PropertyInterface $firstProperty
+     * @param PropertyInterface $secondProperty
+     * @dataProvider _providerEqualTest
+     */
+    public function testEqual($expected, PropertyInterface $firstProperty, PropertyInterface $secondProperty)
+    {
+        $this->assertEquals($expected, $firstProperty->equal($secondProperty));
+    }
+
+    /**
+     * @return array
+     */
+    public function _providerEqualTest()
+    {
+        return array(
+            array(true, new Property('first'), new Property("first")),
+            array(false, new Property('first'), new Property("second")),
+
+            array(
+                true,
+                (new Property('first'))
+                    ->setValue("2"),
+                (new Property("first"))
+                    ->setValue("2")
+            ),
+            array(
+                false,
+                (new Property('first')),
+                (new Property("first"))
+                    ->setValue("2")
+            ),
+            array(
+                true,
+                (new Property('first'))
+                    ->setReadOnly(),
+                (new Property("first"))
+                    ->setReadOnly()
+            ),
+            array(
+                false,
+                (new Property('first')),
+                (new Property("first"))
+                    ->setReadOnly()
+            ),
+            array(
+                true,
+                (new Property('first'))
+                    ->setRequired()
+                    ->setValue("1"),
+                (new Property("first"))
+                    ->setRequired()
+                    ->setValue("1")
+            ), array(
+                false,
+                (new Property('first'))
+                    ->setValue("1"),
+                (new Property("first"))
+                    ->setRequired()
+                    ->setValue("1")
+            ),
+        );
+    }
+
     protected function setUp()
     {
         parent::setUp();

@@ -43,4 +43,20 @@ interface PropertyInterface
 
     /** @return string */
     public function toString();
+
+    /**
+     * @param PropertyInterface $property
+     * @return boolean
+     */
+    public function equal(PropertyInterface $property);
+
+    /**
+     * @return boolean
+     */
+    public function isReadOnly();
+
+    /**
+     * @return boolean
+     */
+    public function isRequired();
 }

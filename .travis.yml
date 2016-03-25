@@ -5,7 +5,9 @@ php:
 before_script:
   - composer self-update
   - composer install
-script: phpunit --bootstrap vendor/autoload.php tests
+script:
+  - php vendor/bin/phpcs --report=xml --report-file=reports/phpcs.xml --standard=PSR2 --ignore=*/vendor/* ./
+  - phpunit --bootstrap vendor/autoload.php tests
 
 notifications:
     on_success: never

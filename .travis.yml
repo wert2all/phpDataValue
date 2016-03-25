@@ -5,7 +5,7 @@ php:
 before_script:
   - composer self-update
   - composer install
-script: phpunit --bootstrap autoloader.php tests
+script: phpunit --bootstrap vendor/autoload.php tests
 
 notifications:
     on_success: never

@@ -27,6 +27,37 @@ class Property extends PropertyAbstract implements PropertyInterface
     protected $isRequired = false;
 
     /**
+     * @return PropertyInterface
+     */
+    public function setReadOnly()
+    {
+        $this->isReadOnly = true;
+        return $this;
+    }
+
+    /**
+     * @return PropertyInterface
+     */
+    public function setRequired()
+    {
+        $this->isRequired = true;
+        return $this;
+    }
+
+    /**
+     * @param PropertyInterface $property
+     * @return boolean
+     */
+    public function equal(PropertyInterface $property)
+    {
+        return
+            ($this->getPropertyName() === $property->getPropertyName())
+            and ($this->getValue() === $property->getValue())
+            and ($this->isReadOnly() === $property->isReadOnly())
+            and ($this->isRequired() === $property->isRequired());
+    }
+
+    /**
      * @return mixed
      * @throws Required
      */
@@ -60,20 +91,18 @@ class Property extends PropertyAbstract implements PropertyInterface
     }
 
     /**
-     * @return PropertyInterface
+     * @return boolean
      */
-    public function setReadOnly()
+    public function isReadOnly()
     {
-        $this->isReadOnly = true;
-        return $this;
+        return $this->isReadOnly;
     }
 
     /**
-     * @return PropertyInterface
+     * @return boolean
      */
-    public function setRequired()
+    public function isRequired()
     {
-        $this->isRequired = true;
-        return $this;
+        return $this->isRequired;
     }
 }

@@ -14,6 +14,7 @@ use wert2all\DataValue\Property\PropertyInterface;
 
 class PropertyTest extends \PHPUnit_Framework_TestCase
 {
+    const PROPERTY_NAME = "test";
     /** @var  PropertyInterface */
     protected $property;
 
@@ -103,10 +104,29 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("test: test value", $this->property->toString());
     }
 
+    public function testConstructorWithData()
+    {
+        $this->property = new Property(self::PROPERTY_NAME, "1");
+        $this->assertEquals("1", $this->property->getValue());
+    }
+
+    public function testValueObjectPattern()
+    {
+        $oldObjectHash = spl_object_hash($this->property);
+        $this->assertNotEquals($oldObjectHash, spl_object_hash($this->property->setValue("1")));
+    }
+
+    public function testIsValueSetByConstructor()
+    {
+        $this->property = new Property(self::PROPERTY_NAME, "1");
+        $this->assertTrue( $this->property->isValueSet() );
+    }
+
+
     protected function setUp()
     {
         parent::setUp();
-        $this->property = new Property("test");
+        $this->property = new Property(self::PROPERTY_NAME);
     }
 
 

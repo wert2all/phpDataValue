@@ -64,7 +64,7 @@ abstract class AbstractDataValue
         $dataName = mb_substr($name, 3);
 
         if (!$this->isPropertyExist($dataName)) {
-            throw  new Bad();
+            throw new Bad();
         }
 
         switch ($prefix) {

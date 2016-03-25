@@ -6,9 +6,7 @@
  * @license     {license_link}
  */
 
-
 namespace wert2all\DataValue\Exception\Property;
-
 
 class ReadOnly extends \Exception
 {

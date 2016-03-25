@@ -6,9 +6,7 @@
  * @license     {license_link}
  */
 
-
 namespace wert2all\DataValue\Property;
-
 
 abstract class PropertyAbstract implements PropertyInterface
 {
@@ -44,6 +42,4 @@ abstract class PropertyAbstract implements PropertyInterface
     {
         return $this->name;
     }
-
-
 }

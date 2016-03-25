@@ -2,7 +2,6 @@
 
 namespace wert2all\DataValue\Example;
 
-
 use wert2all\DataValue\AbstractDataValue;
 use wert2all\DataValue\Property;
 
@@ -19,7 +18,7 @@ class Car extends AbstractDataValue
     /**
      * @return array
      */
-    protected function _getInitPropertyList()
+    protected function getInitPropertyList()
     {
         return array(
             new Property("engine"),

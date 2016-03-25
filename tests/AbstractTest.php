@@ -80,7 +80,10 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
 
     public function testSetterReturn()
     {
-        $this->assertInstanceOf("wert2all\DataValue\AbstractDataValue", $this->param->setEngine("1"));
+        $this->assertInstanceOf(
+            "wert2all\DataValue\AbstractDataValue",
+            $this->param->setEngine("1")
+        );
     }
 
 
@@ -99,7 +102,10 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
             ->setEngine("test")
             ->setColor("red");
 
-        $this->assertEquals("wert2all\DataValue\Example\Car values:\n\tengine: test,\n\tcolor: red,\n", $this->param->toString());
+        $this->assertEquals(
+            "wert2all\DataValue\Example\Car values:\n\tengine: test,\n\tcolor: red,\n",
+            $this->param->toString()
+        );
     }
 
     /**

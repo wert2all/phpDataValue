@@ -26,17 +26,17 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
 
     public function testSetterReturnValue()
     {
-        $this->assertInstanceOf("wert2all\DataValue\Property\PropertyInterface", $this->property->setValue("1"));
+        $this->assertInstanceOf('wert2all\DataValue\Property\PropertyInterface', $this->property->setValue("1"));
     }
 
     public function testReadOnlyReturnValue()
     {
-        $this->assertInstanceOf("wert2all\DataValue\Property\PropertyInterface", $this->property->setReadOnly());
+        $this->assertInstanceOf('wert2all\DataValue\Property\PropertyInterface', $this->property->setReadOnly());
     }
 
     public function testRequiredReturnValue()
     {
-        $this->assertInstanceOf("wert2all\DataValue\Property\PropertyInterface", $this->property->setRequired());
+        $this->assertInstanceOf('wert2all\DataValue\Property\PropertyInterface', $this->property->setRequired());
     }
 
     public function testSetterReadOnly()
@@ -48,7 +48,7 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->property->isValueSet());
     }
 
-    /** @expectedException  wert2all\DataValue\Exception\Property\ReadOnly */
+    /** @expectedException wert2all\DataValue\Exception\Property\ReadOnly */
     public function testFailOnSettingReadOnly()
     {
         $this->property->setReadOnly();

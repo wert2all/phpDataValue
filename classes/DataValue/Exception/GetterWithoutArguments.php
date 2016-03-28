@@ -6,9 +6,7 @@
  * @license     {license_link}
  */
 
-
 namespace wert2all\DataValue\Exception;
-
 
 class GetterWithoutArguments extends \Exception
 {
@@ -16,5 +14,4 @@ class GetterWithoutArguments extends \Exception
     {
         parent::__construct("Getter can not have arguments", $code, $previous);
     }
-
 }

@@ -64,7 +64,7 @@ abstract class AbstractDataValue
         $dataName = mb_substr($name, 3);
 
         if (!$this->isPropertyExist($dataName)) {
-            throw  new Bad();
+            throw new Bad();
         }
 
         switch ($prefix) {
@@ -97,7 +97,7 @@ abstract class AbstractDataValue
     protected function setter($name, array $arguments)
     {
         if ($this->isArgumentsCount($arguments, 1)) {
-            $this->getProperty($name)->setValue(current($arguments));
+            $this->addProperty($this->getProperty($name)->setValue(current($arguments)));
             return $this;
         } else {
             throw new SetterOneArgument();

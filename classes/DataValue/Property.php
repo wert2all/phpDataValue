@@ -14,32 +14,40 @@ use wert2all\DataValue\Exception\Property\Required;
 use wert2all\DataValue\Property\PropertyAbstract;
 use wert2all\DataValue\Property\PropertyInterface;
 
-class Property extends PropertyAbstract implements PropertyInterface
+final class Property implements PropertyInterface
 {
     /** @var  mixed */
     protected $value;
-    /** @var  boolean */
-    protected $isReadOnly = false;
+    /** @var  string */
+    protected $name;
     /** @var boolean */
     protected $isValueSet = false;
+    /** @var  boolean */
+    protected $isReadOnly = false;
     /** @var  boolean */
     protected $isRequired = false;
 
     /**
-     * @return PropertyInterface
+     * PropertyAbstract constructor.
+     * @param string $name
+     * @param mixed | null $value
      */
-    public function setReadOnly()
+    final public function __construct($name, $value = null)
     {
-        $this->isReadOnly = true;
-        return $this;
+        $this->name = $name;
+        $this->value = $value;
+        if (!is_null($value)) {
+            $this->isValueSet = true;
+        }
     }
 
     /**
+     * @param bool $isRequired
      * @return PropertyInterface
      */
-    public function setRequired()
+    public function setRequired($isRequired = true)
     {
-        $this->isRequired = true;
+        $this->isRequired = $isRequired;
         return $this;
     }
 
@@ -54,6 +62,14 @@ class Property extends PropertyAbstract implements PropertyInterface
             and ($this->getValue() === $property->getValue())
             and ($this->isReadOnly() === $property->isReadOnly())
             and ($this->isRequired() === $property->isRequired());
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPropertyName()
+    {
+        return $this->name;
     }
 
     /**
@@ -76,11 +92,12 @@ class Property extends PropertyAbstract implements PropertyInterface
     public function setValue($value)
     {
         if ($this->isReadOnly === true and $this->isValueSet() === true) {
-            throw  new ReadOnly();
+            throw new ReadOnly();
         }
-        $this->value = $value;
-        $this->isValueSet = true;
-        return $this;
+        $return = new Property($this->getPropertyName(), $value);
+        $return->setReadOnly($this->isReadOnly())
+            ->setRequired($this->isRequired());
+        return $return;
     }
 
     /** @return  boolean */
@@ -103,5 +120,31 @@ class Property extends PropertyAbstract implements PropertyInterface
     public function isRequired()
     {
         return $this->isRequired;
+    }
+
+    /**
+     * @param bool $isReadOnly
+     * @return PropertyInterface
+     */
+    public function setReadOnly($isReadOnly = true)
+    {
+        $this->isReadOnly = $isReadOnly;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->toString();
+    }
+
+    /**
+     * @return  string
+     */
+    public function toString()
+    {
+        return $this->getPropertyName() . ": " . $this->getValue();
     }
 }

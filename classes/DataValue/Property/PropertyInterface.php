@@ -23,17 +23,19 @@ interface PropertyInterface
     public function setValue($value);
 
     /**
+     * @param bool $isReadOnly
      * @return PropertyInterface
      */
-    public function setReadOnly();
+    public function setReadOnly($isReadOnly = true);
 
     /** @return  boolean */
     public function isValueSet();
 
     /**
+     * @param bool $isRequired
      * @return PropertyInterface
      */
-    public function setRequired();
+    public function setRequired($isRequired = true);
 
     /** @return string */
     public function getPropertyName();

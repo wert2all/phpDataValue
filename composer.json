@@ -1,9 +1,10 @@
 {
   "name": "wert2all/phpDataValue",
   "description": "Data-Value template realization on PHP",
+  "version": "1.0",
   "require": {
-    "phpunit/phpunit-mock-objects": ">=3.0.5",
-    "phpunit/phpunit": "5.4.x-dev",
+    "phpunit/phpunit-mock-objects": ">=3.1.2",
+    "phpunit/phpunit": ">=5.2.12",
     "squizlabs/php_codesniffer": ">=2.5.1"
   },
   "autoload": {

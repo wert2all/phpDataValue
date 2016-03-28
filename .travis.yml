@@ -6,7 +6,7 @@ before_script:
   - composer self-update
   - composer install --dev
 script:
-  - php vendor/bin/phpcs --report=xml --report-file=reports/phpcs.xml --standard=PSR2 --ignore=*/vendor/* ./
+  - php vendor/bin/phpcs --report=xml --report-file=reports/phpcs.xml --standard=PSR2 --ignore=*/vendor/* -p -v ./
   - phpunit --bootstrap vendor/autoload.php tests
 
 notifications:

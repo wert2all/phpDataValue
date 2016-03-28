@@ -42,20 +42,12 @@ final class Property implements PropertyInterface
     }
 
     /**
+     * @param bool $isRequired
      * @return PropertyInterface
      */
-    public function setReadOnly()
+    public function setRequired($isRequired = true)
     {
-        $this->isReadOnly = true;
-        return $this;
-    }
-
-    /**
-     * @return PropertyInterface
-     */
-    public function setRequired()
-    {
-        $this->isRequired = true;
+        $this->isRequired = $isRequired;
         return $this;
     }
 
@@ -70,22 +62,6 @@ final class Property implements PropertyInterface
             and ($this->getValue() === $property->getValue())
             and ($this->isReadOnly() === $property->isReadOnly())
             and ($this->isRequired() === $property->isRequired());
-    }
-    
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->toString();
-    }
-
-    /**
-     * @return  string
-     */
-    public function toString()
-    {
-        return $this->getPropertyName() . ": " . $this->getValue();
     }
 
     /**
@@ -118,9 +94,10 @@ final class Property implements PropertyInterface
         if ($this->isReadOnly === true and $this->isValueSet() === true) {
             throw new ReadOnly();
         }
-        $this->value = $value;
-        $this->isValueSet = true;
-        return $this;
+        $return = new Property($this->getPropertyName(), $value);
+        $return->setReadOnly($this->isReadOnly())
+            ->setRequired($this->isRequired());
+        return $return;
     }
 
     /** @return  boolean */
@@ -143,5 +120,31 @@ final class Property implements PropertyInterface
     public function isRequired()
     {
         return $this->isRequired;
+    }
+
+    /**
+     * @param bool $isReadOnly
+     * @return PropertyInterface
+     */
+    public function setReadOnly($isReadOnly = true)
+    {
+        $this->isReadOnly = $isReadOnly;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->toString();
+    }
+
+    /**
+     * @return  string
+     */
+    public function toString()
+    {
+        return $this->getPropertyName() . ": " . $this->getValue();
     }
 }

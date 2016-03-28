@@ -20,7 +20,7 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
 
     public function testValue()
     {
-        $this->property->setValue("1");
+        $this->property = $this->property->setValue("1");
         $this->assertEquals("1", $this->property->getValue());
     }
 
@@ -44,7 +44,7 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
         $this->property->setReadOnly();
         $this->assertFalse($this->property->isValueSet());
 
-        $this->property->setValue("1");
+        $this->property = $this->property->setValue("1");
         $this->assertTrue($this->property->isValueSet());
     }
 
@@ -52,13 +52,13 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
     public function testFailOnSettingReadOnly()
     {
         $this->property->setReadOnly();
-        $this->property->setValue("1");
-        $this->property->setValue("2");
+        $this->property = $this->property->setValue("1");
+        $this->property = $this->property->setValue("2");
     }
 
     public function testReadOnly()
     {
-        $this->property
+        $this->property = $this->property
             ->setReadOnly()
             ->setValue("1");
 
@@ -69,11 +69,11 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
 
     public function testReadOnlyValue()
     {
-        $this->property
+        $this->property = $this->property
             ->setReadOnly()
             ->setValue("1");
         try {
-            $this->property->setValue("2");
+            $this->property = $this->property->setValue("2");
         } catch (\Exception $e) {
 
         }
@@ -100,7 +100,7 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
 
     public function testToString()
     {
-        $this->property->setValue("test value");
+        $this->property = $this->property->setValue("test value");
         $this->assertEquals("test: test value", $this->property->toString());
     }
 
@@ -119,7 +119,7 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
     public function testIsValueSetByConstructor()
     {
         $this->property = new Property(self::PROPERTY_NAME, "1");
-        $this->assertTrue( $this->property->isValueSet() );
+        $this->assertTrue($this->property->isValueSet());
     }
 
 
@@ -177,7 +177,8 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
                 (new Property("first"))
                     ->setRequired()
                     ->setValue("1")
-            ), array(
+            ),
+            array(
                 false,
                 (new Property('first'))
                     ->setValue("1"),
@@ -185,8 +186,48 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
                     ->setRequired()
                     ->setValue("1")
             ),
+            array(
+                true,
+                (new Property('first', '1'))
+                    ->setRequired()
+                    ->setReadOnly(),
+                (new Property("first"))
+                    ->setRequired()
+                    ->setReadOnly()
+                    ->setValue("1")
+            ),
+            array(
+                true,
+                (new Property('first', '1'))
+                    ->setRequired(),
+                (new Property("first"))
+                    ->setRequired()
+                    ->setValue("1")
+            ),
+            array(
+                true,
+                (new Property('second', '2')),
+                (new Property("second"))->setValue("2")
+            ),
         );
     }
+
+    public function testRequiredSetter()
+    {
+        $this->property->setRequired(false);
+        $this->assertFalse($this->property->isRequired());
+        $this->property->setRequired(true);
+        $this->assertTrue($this->property->isRequired());
+    }
+
+    public function testReadOnlySetter()
+    {
+        $this->property->setReadOnly(false);
+        $this->assertFalse($this->property->isReadOnly());
+        $this->property->setReadOnly(true);
+        $this->assertTrue($this->property->isReadOnly());
+    }
+
 
     protected function setUp()
     {

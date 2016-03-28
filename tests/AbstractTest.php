@@ -85,8 +85,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
             $this->param->setEngine("1")
         );
     }
-
-
+    
     public function testGetter()
     {
         $this->assertEquals(

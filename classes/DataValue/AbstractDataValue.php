@@ -9,6 +9,7 @@
 
 namespace wert2all\DataValue;
 
+use Exception;
 use wert2all\DataValue\Exception\GetterWithoutArguments;
 use wert2all\DataValue\Exception\NotSetterNotGetter;
 use wert2all\DataValue\Exception\Property\Bad;
@@ -96,12 +97,27 @@ abstract class AbstractDataValue
      */
     protected function setter($name, array $arguments)
     {
-        if ($this->isArgumentsCount($arguments, 1)) {
-            $this->addProperty($this->getProperty($name)->setValue(current($arguments)));
-            return $this;
-        } else {
-            throw new SetterOneArgument();
+        return
+            $this->testArguments($arguments, 1, new SetterOneArgument())
+                ->addProperty(
+                    $this->getProperty($name)
+                        ->setValue(current($arguments))
+                );
+    }
+
+    /**
+     * @param array $arguments
+     * @param int $countArguments
+     * @param Exception $errorObject
+     * @return $this
+     * @throws Exception
+     */
+    protected function testArguments(array $arguments, $countArguments, Exception $errorObject)
+    {
+        if (!$this->isArgumentsCount($arguments, $countArguments)) {
+            throw $errorObject;
         }
+        return $this;
     }
 
     /**
@@ -131,11 +147,8 @@ abstract class AbstractDataValue
      */
     protected function getter($name, array $arguments)
     {
-        if ($this->isArgumentsCount($arguments, 0)) {
-            return $this->getProperty($name)->getValue();
-        } else {
-            throw new GetterWithoutArguments();
-        }
+        return $this->testArguments($arguments, 0, new GetterWithoutArguments())
+            ->getProperty($name)->getValue();
     }
 
     /**

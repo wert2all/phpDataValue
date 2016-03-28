@@ -4,7 +4,7 @@ php:
   - '7.0'
 before_script:
   - composer self-update
-  - composer install
+  - composer install --dev
 script:
   - php vendor/bin/phpcs --report=xml --report-file=reports/phpcs.xml --standard=PSR2 --ignore=*/vendor/* ./
   - phpunit --bootstrap vendor/autoload.php tests

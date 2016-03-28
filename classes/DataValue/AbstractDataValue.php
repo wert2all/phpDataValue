@@ -31,7 +31,7 @@ abstract class AbstractDataValue
     final public function __construct(array $fields = null)
     {
         if (!is_array($fields)) {
-            $fields = $this->_getInitPropertyList();
+            $fields = $this->getInitPropertyList();
         }
 
         if (is_array($fields)) {
@@ -45,7 +45,7 @@ abstract class AbstractDataValue
     /**
      * @return PropertyInterface[]
      */
-    abstract protected function _getInitPropertyList();
+    abstract protected function getInitPropertyList();
 
     /**
      * @param PropertyInterface $value

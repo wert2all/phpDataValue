@@ -90,11 +90,11 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
 
     public function testRequired()
     {
-
-        $this->assertEquals("1", $this->property
-            ->setRequired()
-            ->setValue("1")
-            ->getValue()
+        $this->assertEquals(
+            "1",
+            $this->property->setRequired()
+                ->setValue("1")
+                ->getValue()
         );
     }
 
@@ -127,7 +127,7 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
      * @param $expected
      * @param PropertyInterface $firstProperty
      * @param PropertyInterface $secondProperty
-     * @dataProvider _providerEqualTest
+     * @dataProvider providerEqualTest
      */
     public function testEqual($expected, PropertyInterface $firstProperty, PropertyInterface $secondProperty)
     {
@@ -137,7 +137,7 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
     /**
      * @return array
      */
-    public function _providerEqualTest()
+    public function providerEqualTest()
     {
         return array(
             array(true, new Property('first'), new Property("first")),
@@ -193,6 +193,4 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
         parent::setUp();
         $this->property = new Property(self::PROPERTY_NAME);
     }
-
-
 }

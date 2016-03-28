@@ -6,9 +6,7 @@
  * @license     {license_link}
  */
 
-
 namespace wert2all\DataValue\Property;
-
 
 interface PropertyInterface
 {
@@ -23,7 +21,6 @@ interface PropertyInterface
      * @return PropertyInterface
      */
     public function setValue($value);
-
 
     /**
      * @return PropertyInterface

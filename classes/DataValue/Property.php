@@ -9,7 +9,6 @@
 
 namespace wert2all\DataValue;
 
-
 use wert2all\DataValue\Exception\Property\ReadOnly;
 use wert2all\DataValue\Exception\Property\Required;
 use wert2all\DataValue\Property\PropertyAbstract;

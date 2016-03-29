@@ -58,4 +58,10 @@ interface PropertyInterface
      * @return boolean
      */
     public function isRequired();
+
+    /**
+     * @param string $className
+     * @return $this
+     */
+    public function setValueType($className);
 }

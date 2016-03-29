@@ -9,9 +9,9 @@
 
 namespace wert2all\DataValue;
 
+use wert2all\DataValue\Exception\Property\BadValueType;
 use wert2all\DataValue\Exception\Property\ReadOnly;
 use wert2all\DataValue\Exception\Property\Required;
-use wert2all\DataValue\Property\PropertyAbstract;
 use wert2all\DataValue\Property\PropertyInterface;
 
 final class Property implements PropertyInterface
@@ -26,6 +26,8 @@ final class Property implements PropertyInterface
     protected $isReadOnly = false;
     /** @var  boolean */
     protected $isRequired = false;
+    /** @var  string */
+    protected $valueType = null;
 
     /**
      * PropertyAbstract constructor.
@@ -87,12 +89,19 @@ final class Property implements PropertyInterface
     /**
      * @param mixed $value
      * @return PropertyInterface
+     * @throws BadValueType
      * @throws ReadOnly
      */
     public function setValue($value)
     {
         if ($this->isReadOnly === true and $this->isValueSet() === true) {
             throw new ReadOnly();
+        }
+
+        if (!is_null($this->valueType)) {
+            if (!is_object($value) or get_class($value) !== $this->valueType) {
+                throw new BadValueType();
+            }
         }
         $return = new Property($this->getPropertyName(), $value);
         $return->setReadOnly($this->isReadOnly())
@@ -146,5 +155,15 @@ final class Property implements PropertyInterface
     public function toString()
     {
         return $this->getPropertyName() . ": " . $this->getValue();
+    }
+
+    /**
+     * @param string $className
+     * @return $this
+     */
+    public function setValueType($className)
+    {
+        $this->valueType = $className;
+        return $this;
     }
 }

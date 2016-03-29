@@ -9,6 +9,8 @@
 
 namespace Tests\DataValue;
 
+use wert2all\DataValue\Example\Car;
+use wert2all\DataValue\Example\Engine;
 use wert2all\DataValue\Property;
 use wert2all\DataValue\Property\PropertyInterface;
 
@@ -228,6 +230,18 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->property->isReadOnly());
     }
 
+    public function testGoodValueType()
+    {
+        $this->property->setValueType(Car::class)
+            ->setValue(new Car());
+    }
+
+    /** @expectedException wert2all\DataValue\Exception\Property\BadValueType */
+    public function testBadValueType()
+    {
+        $this->property->setValueType(Engine::class)
+            ->setValue(new Car());
+    }
 
     protected function setUp()
     {

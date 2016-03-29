@@ -25,7 +25,7 @@ class Car extends AbstractDataValue
     protected function getInitPropertyList()
     {
         return array(
-            new Property("engine"),
+            (new Property("engine"))->setValueType(Engine::class),
             new Property("color")
         );
     }

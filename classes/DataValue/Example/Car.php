@@ -1,4 +1,10 @@
 <?php
+/**
+ * {license_notice}
+ *
+ * @copyright   {copyright}
+ * @license     {license_link}
+ */
 
 namespace wert2all\DataValue\Example;
 
@@ -6,15 +12,13 @@ use wert2all\DataValue\AbstractDataValue;
 use wert2all\DataValue\Property;
 
 /**
- * @method Car setEngine($value)
- * @method mixed getEngine()
+ * @method Car setEngine(Engine $value)
+ * @method Engine getEngine()
  * @method Car setColor($value)
  * @method mixed getColor()
  */
 class Car extends AbstractDataValue
 {
-
-
     /**
      * @return array
      */

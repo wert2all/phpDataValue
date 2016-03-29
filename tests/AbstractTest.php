@@ -10,6 +10,7 @@ namespace Tests\DataValue;
 
 use wert2all\DataValue\AbstractDataValue;
 use wert2all\DataValue\Example\Car;
+use wert2all\DataValue\Example\Engine;
 use wert2all\DataValue\Property;
 
 class AbstractTest extends \PHPUnit_Framework_TestCase
@@ -59,7 +60,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetterUpperCase()
     {
-        $this->param->setEngine("s");
+        $this->param->setEngine(new Engine());
         $this->param->getEngine();
         $this->param->getengine();
         $this->param->Getengine();
@@ -72,63 +73,59 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetterUpperCase()
     {
-        $this->param->setEngine("1");
-        $this->param->setengine("1");
-        $this->param->Setengine("1");
-        $this->param->SetEngine("1");
+        $engine = new Engine();
+        $this->param->setEngine($engine);
+        $this->param->setengine($engine);
+        $this->param->Setengine($engine);
+        $this->param->SetEngine($engine);
     }
 
     public function testSetterReturn()
     {
         $this->assertInstanceOf(
             'wert2all\DataValue\AbstractDataValue',
-            $this->param->setEngine("1")
+            $this->param->setEngine(new Engine())
         );
     }
 
     public function testGetter()
     {
+        $engine = (new Engine())->setPower(100);
+
         $this->assertEquals(
-            "test value",
-            $this->param->setEngine("test value")
+            $engine,
+            $this->param->setEngine($engine)
                 ->getEngine()
         );
     }
 
     public function testToString()
     {
-        $this->param
-            ->setEngine("test")
-            ->setColor("red");
+        $this->param->setColor("red");
 
         $this->assertEquals(
-            'wert2all\DataValue\Example\Car values:' . "\n\tengine: test,\n\tcolor: red,\n",
+            'wert2all\DataValue\Example\Car values:' . "\n\tengine: ,\n\tcolor: red,\n",
             $this->param->toString()
         );
     }
 
-    /**
-     * @return array
-     * @throws \wert2all\DataValue\Exception\Property\ReadOnly
-     */
-    public function dataProviderCar()
+    public function testEngineCar()
     {
-        $property = new Property("engineName");
-        $property->setValue("zaz");
-
-        return array(
-            array(1),
-            array($property)
+        $this->assertEquals(
+            100,
+            $this->param
+                ->setEngine(
+                    (new Engine())->setPower(100)
+                )
+                ->getEngine()
+                ->getPower()
         );
     }
 
-    /**
-     * @dataProvider  dataProviderCar
-     * @param mixed $value
-     */
-    public function testEngineCar($value)
+    /** @expectedException wert2all\DataValue\Exception\Property\BadValueType */
+    public function testBadTypeOfSetter()
     {
-        $this->assertEquals($value, $this->param->setEngine($value)->getEngine());
+        $this->param->setEngine("bad");
     }
 
     protected function setUp()

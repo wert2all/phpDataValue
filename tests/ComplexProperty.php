@@ -5,7 +5,8 @@
  * @copyright   {copyright}
  * @license     {license_link}
  */
-namespace Tests\DataValue;
+
+namespace wert2all\DataValue\Tests\DataValue;
 
 use wert2all\DataValue\Example\Car;
 use wert2all\DataValue\Example\Engine;

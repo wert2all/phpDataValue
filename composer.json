@@ -1,7 +1,7 @@
 {
   "name": "wert2all/phpDataValue",
   "description": "Data-Value template realization on PHP",
-  "version": "1.4",
+  "version": "1.5",
   "require-dev": {
     "phpunit/phpunit-mock-objects": "@stable",
     "phpunit/phpunit": "@stable",

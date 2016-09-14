@@ -6,8 +6,7 @@
  * @license     {license_link}
  */
 
-
-namespace Tests\DataValue;
+namespace wert2all\DataValue\Tests\DataValue;
 
 use wert2all\DataValue\Example\Car;
 use wert2all\DataValue\Example\Engine;
@@ -66,7 +65,6 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals("1", $this->property->getValue());
         $this->assertEquals("1", $this->property->getValue());
-
     }
 
     public function testReadOnlyValue()
@@ -77,7 +75,6 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
         try {
             $this->property = $this->property->setValue("2");
         } catch (\Exception $e) {
-
         }
 
         $this->assertEquals("1", $this->property->getValue());

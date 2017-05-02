@@ -1,5 +1,5 @@
 {
-  "name": "wert2all/phpDataValue",
+  "name": "kbaydush/phpDataValue",
   "description": "Data-Value template realization on PHP",
   "version": "1.5",
   "require-dev": {
